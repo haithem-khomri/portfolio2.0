@@ -7,8 +7,7 @@ import {
   Navbar,
   Tech,
   Works,
-  StarsCanvas,
-  ThemeToggle
+  StarsCanvas
 } from "./components";
 import Hero from "./components/Hero";
 
@@ -29,7 +28,7 @@ const App = () => {
             <Contact />
             <StarsCanvas />
           </div>
-          <ThemeToggle />
+          {/* ThemeToggle removed */}
         </div>
       </ThemeProvider>
     </BrowserRouter>

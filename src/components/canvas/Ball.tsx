@@ -31,9 +31,9 @@ const Ball: React.FC<BallProps> = (props) => {
         <Decal
           position={[0, 0, 1]}
           rotation={[2 * Math.PI, 0, 6.25]}
-          scale={1}
+          scale={1.5}
           map={decal}
-          flatShading
+          flatShading // Remove this line or replace with a valid property
         />
       </mesh>
     </Float>

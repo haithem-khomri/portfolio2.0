@@ -5,6 +5,7 @@ import { services } from "../constants";
 import { fadeIn, textVariant } from "../utils/motion";
 import { SectionWrapper } from "../hoc";
 import { IconType } from "react-icons";
+import { IoShieldCheckmarkSharp } from "react-icons/io5";
 
 interface ServiceCardProps {
   index: number;

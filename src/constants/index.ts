@@ -182,7 +182,7 @@ const experiences = [
     ]
   },
   {
-    title: "M",
+    title: "Manager",
     company_name: "Google Developers Groupe",
     icon: "/company-logos/gdg.png",
     iconBg: "#383E56",

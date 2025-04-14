@@ -53,8 +53,9 @@ const Stars = (props: JSX.IntrinsicElements["group"]) => {
 
   return (
     <group rotation={[0, 0, Math.PI / 4]}>
+      // Fix the ref issue
       <Points
-        ref={ref as unknown as React.MutableRefObject<THREE.Points>}
+        ref={ref as React.RefObject<THREE.Points>}
         positions={sphere}
         stride={3}
         frustumCulled
@@ -151,7 +152,7 @@ const AnimatedLogo = ({ children, initialPosition, speed = 0.5 }) => {
     }
   });
 
-  const handlePointerDown = (e) => {
+  const handlePointerDown = (e: THREE.Event) => {
     e.stopPropagation();
     setIsDragging(true);
     
@@ -169,7 +170,7 @@ const AnimatedLogo = ({ children, initialPosition, speed = 0.5 }) => {
     }
   };
 
-  const handlePointerUp = (e) => {
+  const handlePointerUp = (e: THREE.Event) => {
     e.stopPropagation();
     setIsDragging(false);
   };

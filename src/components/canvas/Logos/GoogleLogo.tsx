@@ -7,7 +7,9 @@ import { ThemeContext } from "../../../context/ThemeContext";
 
 export function GoogleLogo({ scale = 1 }) {
   const groupRef = useRef<THREE.Group>(null);
-  const { themeColors } = useContext(ThemeContext);
+  // Either use themeColors or remove it:
+  // const { themeColors } = useContext(ThemeContext);
+  const { } = useContext(ThemeContext);
   const [hovered, setHovered] = useState(false);
   const [clicked, setClicked] = useState(false);
   

@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { styles } from "../styles";
 import { navLinks } from "../constants";
-import { menu, close } from "../assets";
+// Replace the asset imports with React Icons
+import { HiMenu, HiX } from "react-icons/hi";
+import { ThemeContext } from "../context/ThemeContext";
 
 const Navbar: React.FC = () => {
+  const { themeColors } = useContext(ThemeContext);
   const [active, setActive] = useState<string>("");
   const [toggle, setToggle] = useState<boolean>(false);
   const [scrolled, setScrolled] = useState<boolean>(false);
@@ -32,13 +35,17 @@ const Navbar: React.FC = () => {
     }
   };
 
+  // Remove these lines since we're using React Icons components
+  // const menuIcon = menu || '/menu.svg';
+  // const closeIcon = close || '/close.svg';
+
   return (
     <nav
-      className={`${
-        styles.paddingX
-      } w-full flex items-center py-5 fixed top-0 z-20 ${
-        scrolled ? "bg-primary" : "bg-transparent"
-      }`}
+      className={`${styles.paddingX} w-full flex items-center py-5 fixed top-0 z-20 transition-all duration-300 backdrop-blur-sm`}
+      style={{
+        backgroundColor: scrolled ? themeColors.navBg : "transparent",
+        boxShadow: scrolled ? `0 4px 20px ${themeColors.shadowColor}` : "none",
+      }}
     >
       <div className="w-full flex justify-between items-center max-w-7xl mx-auto">
         <Link
@@ -49,7 +56,10 @@ const Navbar: React.FC = () => {
             window.scrollTo(0, 0);
           }}
         >
-          <p className="text-white text-[18px] font-bold cursor-pointer flex">
+          <p
+            className="text-[18px] font-bold cursor-pointer flex"
+            style={{ color: themeColors.text }}
+          >
             Haithem Abdelkahar KHOMRI &nbsp;
             <span className="sm:block hidden">| Portfolio</span>
           </p>
@@ -59,9 +69,18 @@ const Navbar: React.FC = () => {
           {navLinks.map((link) => (
             <li
               key={link.id}
-              className={`${
-                active === link.id ? "text-white" : "text-secondary"
-              } hover:text-white text-[18px] font-medium cursor-pointer`}
+              className={`hover:text-white text-[18px] font-medium cursor-pointer transition-colors duration-300`}
+              style={{
+                color:
+                  active === link.id
+                    ? themeColors.text
+                    : themeColors.textSecondary,
+                borderBottom:
+                  active === link.id
+                    ? `2px solid ${themeColors.accent}`
+                    : "none",
+                paddingBottom: "5px",
+              }}
               onClick={() => scrollToSection(link.id)}
             >
               <span>{link.title}</span>
@@ -70,25 +89,41 @@ const Navbar: React.FC = () => {
         </ul>
 
         <div className="sm:hidden flex flex-1 justify-end items-center">
-          <img
-            src={toggle ? close : menu}
-            alt="menu"
-            className="w-[28px] h-[28px] object-contain cursor-pointer"
-            onClick={() => setToggle(!toggle)}
-          />
+          {/* Replace img tag with React Icon component */}
+          {toggle ? (
+            <HiX
+              className="w-[28px] h-[28px] cursor-pointer"
+              onClick={() => setToggle(!toggle)}
+              style={{ color: themeColors.text }}
+            />
+          ) : (
+            <HiMenu
+              className="w-[28px] h-[28px] cursor-pointer"
+              onClick={() => setToggle(!toggle)}
+              style={{ color: themeColors.text }}
+            />
+          )}
 
           <div
             className={`${
               !toggle ? "hidden" : "flex"
-            } p-6 black-gradient absolute top-20 right-0 mx-4 my-2 min-w-[140px] z-10 rounded-xl`}
+            } p-6 absolute top-20 right-0 mx-4 my-2 min-w-[140px] z-10 rounded-xl transition-all duration-300`}
+            style={{
+              backgroundColor: themeColors.surface,
+              boxShadow: `0 10px 25px ${themeColors.shadowColor}`,
+            }}
           >
             <ul className="list-none flex justify-end items-start flex-col gap-4">
               {navLinks.map((link) => (
                 <li
                   key={link.id}
-                  className={`${
-                    active === link.id ? "text-white" : "text-secondary"
-                  } font-poppins font-medium cursor-pointer text-[16px]`}
+                  className={`font-medium cursor-pointer text-[16px] transition-colors duration-300`}
+                  style={{
+                    color:
+                      active === link.id
+                        ? themeColors.accent
+                        : themeColors.text,
+                  }}
                   onClick={() => scrollToSection(link.id)}
                 >
                   <span>{link.title}</span>
